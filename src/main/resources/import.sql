@@ -16,3 +16,4 @@ INSERT INTO tb_inscricao (data_hora, evento_id, participante_id) VALUES ('2024-0
 
 -- Inserindo usuários
 INSERT INTO tb_usuario (nome, email, senha) VALUES ('Administrador', 'admin@email.com', '\$2a\$10\$D9Q0J5bGlo9/DH6jZODsne/j7/PyNOuGlkSh8xVrt12K0FOesdxzi');
+INSERT INTO tb_usuario (nome, email, senha) VALUES ('João Silva', 'joao.silva@email.com', '\$2a\$10\$A1B2C3D4E5F6G7H8I9J0k1M2N3O4P5Q6R7S8T9U0V1W2X3Y4Z5a6b7');

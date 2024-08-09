@@ -49,11 +49,11 @@ public class Evento {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setName(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
