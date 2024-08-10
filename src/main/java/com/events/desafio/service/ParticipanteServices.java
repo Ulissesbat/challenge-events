@@ -18,11 +18,24 @@ public class ParticipanteServices {
 	@Transactional
 	public ParticipanteDTO insert(ParticipanteDTO dto) {
 		Participante entity = new Participante();
-		entity.setNome(dto.getNome());
-		entity.setEmail(dto.getEmail());
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new ParticipanteDTO(entity);
 		
 	}
 
+	@Transactional
+	public ParticipanteDTO update(Long id, ParticipanteDTO dto) {
+		Participante entity = repository.getReferenceById(id);
+		copyDtoToEntity(dto, entity);
+		entity = repository.save(entity);
+		return new ParticipanteDTO(entity);
+		
+	}
+	
+	private void copyDtoToEntity(ParticipanteDTO dto, Participante entity) {	
+		entity.setNome(dto.getNome());
+		entity.setEmail(dto.getEmail());
+	}
+	
 }
