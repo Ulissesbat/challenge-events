@@ -1,6 +1,8 @@
 package com.events.desafio.service;
+import org.springframework.data.domain.Pageable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,7 @@ public class ParticipanteServices {
 		Participante entity = new Participante();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
-		return new ParticipanteDTO(entity);
-		
+		return new ParticipanteDTO(entity);	
 	}
 
 	@Transactional
@@ -29,8 +30,13 @@ public class ParticipanteServices {
 		Participante entity = repository.getReferenceById(id);
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
-		return new ParticipanteDTO(entity);
-		
+		return new ParticipanteDTO(entity);	
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<ParticipanteDTO> findAll(Pageable pageable) {
+		Page<Participante> result = repository.findAll(pageable);
+		return result.map(x -> new ParticipanteDTO(x));
 	}
 	
 	private void copyDtoToEntity(ParticipanteDTO dto, Participante entity) {	
