@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.events.desafio.dto.ParticipanteDTO;
 import com.events.desafio.service.ParticipanteServices;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/participante")
 public class ParticipanteController {
@@ -26,14 +28,14 @@ public class ParticipanteController {
 	private ParticipanteServices service;
 	
 	@PostMapping
-	public ResponseEntity<ParticipanteDTO> insert (@RequestBody ParticipanteDTO dto){
+	public ResponseEntity<ParticipanteDTO> insert (@Valid @RequestBody ParticipanteDTO dto){
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ParticipanteDTO> update (@PathVariable Long id, @RequestBody ParticipanteDTO dto){
+	public ResponseEntity<ParticipanteDTO> update (@PathVariable Long id, @Valid @RequestBody ParticipanteDTO dto){
 		dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
 	}
