@@ -1,16 +1,20 @@
 package com.events.desafio.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.events.desafio.dto.EventsDTO;
-import com.events.desafio.dto.ParticipanteDTO;
 import com.events.desafio.entities.Evento;
-import com.events.desafio.entities.Participante;
 import com.events.desafio.repository.EventsRepository;
+import com.events.desafio.service.exception.DatabaseException;
+import com.events.desafio.service.exception.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 
 @Service
@@ -29,15 +33,30 @@ public class EventsServices {
 
 	@Transactional
 	public EventsDTO update(Long id, EventsDTO dto) {
+		
+		try {
 		Evento entity = repository.getReferenceById(id);
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new EventsDTO(entity);	
+		}
+		catch(EntityNotFoundException e) {
+			 throw new ResourceNotFoundException("Recurso não encontrado");
+		}
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete (Long id) {
-		repository.deleteById(id);	
+		if(! repository.existsById(id)){
+			throw new ResourceNotFoundException("Recurso não encontrado");
+		}
+		try {
+			repository.deleteById(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DatabaseException("falha de integridade");
+		}
+		
 	}
 	
 	@Transactional(readOnly = true)
