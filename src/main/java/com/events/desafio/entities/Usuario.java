@@ -1,12 +1,17 @@
 package com.events.desafio.entities;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +30,12 @@ public class Usuario {
 	
 	 @Column(nullable = false)
 	private String senha;
+	 
+	 @ManyToMany
+	 @JoinTable(name = "tb_usuario_role",
+	         joinColumns = @JoinColumn(name = "usuario_id"),
+	         inverseJoinColumns = @JoinColumn(name = "role_id"))
+	 private Set<Role> roles = new HashSet<>();
 	
 	public Usuario() {
 	}
@@ -66,6 +77,19 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public void addRole(Role role) {
+		roles.add(role);
+	}
+	
+	public boolean hasRole(String roleName) {
+		for(Role role : roles) {
+			if(role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
