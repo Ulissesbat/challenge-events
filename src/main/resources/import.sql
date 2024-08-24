@@ -15,8 +15,8 @@ INSERT INTO tb_inscricao (data_hora, evento_id, participante_id) VALUES ('2024-0
 INSERT INTO tb_inscricao (data_hora, evento_id, participante_id) VALUES ('2024-08-03 12:00:00', 2, 3);
 
 -- Inserindo usuários
-INSERT INTO tb_usuario (nome, email, senha) VALUES ('Maria Souza', 'admin@email.com', '\$2a\$10\$D9Q0J5bGlo9/DH6jZODsne/j7/PyNOuGlkSh8xVrt12K0FOesdxzi');
-INSERT INTO tb_usuario (nome, email, senha) VALUES ('João Silva', 'joao.silva@email.com', '\$2a\$10\$A1B2C3D4E5F6G7H8I9J0k1M2N3O4P5Q6R7S8T9U0V1W2X3Y4Z5a6b7');
+INSERT INTO tb_usuario (nome, email, senha) VALUES ('Maria Souza', 'maria.souza@email.com', '$2a$10$AcTwZq/Svimx6qNrEZ1GiujyzNAMwc0qTgfjX4c8IyIr97ZG5.stS');
+INSERT INTO tb_usuario (nome, email, senha) VALUES ('João Silva', 'joao.silva@email.com', '$2a$10$AcTwZq/Svimx6qNrEZ1GiujyzNAMwc0qTgfjX4c8IyIr97ZG5.stS');
 
 INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
 INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');

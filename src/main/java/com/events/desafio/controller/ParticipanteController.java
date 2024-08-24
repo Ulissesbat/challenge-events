@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ public class ParticipanteController {
 	@Autowired
 	private ParticipanteServices service;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping
 	public ResponseEntity<ParticipanteDTO> insert (@Valid @RequestBody ParticipanteDTO dto){
 		dto = service.insert(dto);
@@ -34,6 +36,8 @@ public class ParticipanteController {
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ParticipanteDTO> update (@PathVariable Long id, @Valid @RequestBody ParticipanteDTO dto){
 		dto = service.update(id, dto);
