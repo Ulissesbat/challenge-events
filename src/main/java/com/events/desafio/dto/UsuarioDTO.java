@@ -22,13 +22,14 @@ public class UsuarioDTO {
 	@NotBlank(message = "O campo de senha é obrigatório")
 	private String senha;
 
+	
 	public UsuarioDTO(Long id, String nome, String email, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 	}
-	
+
 	public UsuarioDTO(Usuario entity) {
 		id = entity.getId();
 		nome = entity.getNome();
